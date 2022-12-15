@@ -1,0 +1,19 @@
+import file_scraper
+import coord_calc
+import coord_convert
+
+
+string_sp = file_scraper.read_file()
+
+dms = file_scraper.find_dms(string_sp)
+ddm = file_scraper.find_ddm(string_sp)
+dd = file_scraper.find_dd(string_sp)
+
+
+
+dd_converted = coord_convert.convert_dd(dd)
+ddm_converted = coord_convert.convert_ddm(ddm)
+dms_converted = coord_convert.convert_dms(dms)
+
+c_df = coord_convert.combine_df(dd_converted, ddm_converted, dms_converted)
+coord_calc.distance_formula(c_df)

@@ -179,25 +179,30 @@ def distance_formula(df):
             indexlist.append(j)
         delta_df = pd.DataFrame({'Delta Time' : time_delta}, index = indexlist)
         d_df = d_df.merge(delta_df, left_index=True, right_index = True)
-        print("This is the new df:" , d_df)
         for j, k in d_df.iterrows():
             wentthru = 0
             time = k['Delta Time']
             if time.total_seconds() > 0 & wentthru == 0:
+                distance = 0
                 if k['ID'] == row['ID']:
-                    distance = 0
                     k_long = float(k['DD Long Converted'])
                     long_side = abs(long_conv - k_long)
                     k_lat = float(k['DD Lat Converted'])
                     lat_side = abs(lat_conv - k_lat)
                     distance = float(math.sqrt(long_side**2 + lat_side**2))
                     print("This is the distance for ", row['ID'], " from", row['Coordinates'], "to ", k['Coordinates'] , "with time of" , time,  ' : ' , distance)
+                    df.at[i, 'Distance (DD)'] = distance
                     wentthru = 1  
-            elif k['ID'] == row['ID'] & math.isnan(df.at[i, 'Distance (DD)']):
-                df.at[i, 'Distance (DD)'] = 0
+            elif k['ID'] == row['ID']:
+                print(df.at[i, 'Distance (DD)'])
+                if math.isnan(df.at[i, 'Distance (DD)']):
+                    if math.isnan(distance):
+                        df.at[i, 'Distance (DD)'] = 0
+                    else:
+                       df.at[i, 'Distance (DD)'] = distance
         df.at[i, 'Time elapsed']= time
         #df['Distance'][row] = distance
-        print("this be df :" , df)
+    print("this be df :" , df)
 
 string_sp = read_file()
 
