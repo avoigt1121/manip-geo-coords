@@ -2,14 +2,21 @@
 Rob's assignment on practicing pandas manipulation and geocoordinates
 
 This doesnt actually work yet lol
+
 REQUIRED IMPORTS/INSTALLS:
 
 from cmath import inf
+
 import pandas as pd
+
 import re
+
 from datetime import datetime
+
 from dateutil.parser import parse
+
 import math
+
 import sympy
 
 
