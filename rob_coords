@@ -163,7 +163,7 @@ def combine_df(dd, ddm, dms):
 def distance_formula(df):
     dista = []
     tim = []
-    dis_df = pd.DataFrame({'Distance' : dista, 'Time elapsed' : tim})
+    dis_df = pd.DataFrame({'Distance (DD)' : dista, 'Time elapsed' : tim})
     df = pd.concat([df, dis_df])
 
     for i, row in df.iterrows():
@@ -193,19 +193,19 @@ def distance_formula(df):
                     distance = float(math.sqrt(long_side**2 + lat_side**2))
                     print("This is the distance for ", row['ID'], " from", row['Coordinates'], "to ", k['Coordinates'] , "with time of" , time,  ' : ' , distance)
                     wentthru = 1  
-        df.at[i, 'Distance'] = distance 
+            elif k['ID'] == row['ID'] & math.isnan(df.at[i, 'Distance (DD)']):
+                df.at[i, 'Distance (DD)'] = 0
         df.at[i, 'Time elapsed']= time
         #df['Distance'][row] = distance
         print("this be df :" , df)
-
-
-        
 
 string_sp = read_file()
 
 dms = find_dms(string_sp)
 ddm = find_ddm(string_sp)
 dd = find_dd(string_sp)
+
+
 
 dd_converted = convert_dd(dd)
 ddm_converted = convert_ddm(ddm)
